@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAYFLOW | Student Productivity</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">D</span><span>DAYFLOW</span></div>
+    <p class="nav-label">WORKSPACE</p>
+    <button class="nav-item active" data-view="dashboard">▦ <span>Dashboard</span></button>
+    <button class="nav-item" data-view="tasks">☷ <span>My Tasks</span></button>
+    <button class="nav-item" data-view="calendar">▦ <span>Calendar</span></button>
+    <button class="nav-item" data-view="focus">◷ <span>Focus Timer</span></button>
+    <button class="nav-item" data-view="reports">▥ <span>Reports</span></button>
+    <div class="sidebar-bottom"><div class="mini-profile">S</div><div><strong>Student Workspace</strong><small>Stay on track</small></div></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><p class="eyebrow" id="today-label"></p><h1 id="page-title">Your productivity space.</h1></div>
+      <button class="primary-btn" id="header-add">＋ Add task</button>
+    </header>
+
+    <section class="view active" id="dashboard-view">
+      <div class="welcome-card">
+        <div><p class="eyebrow light">A LITTLE PROGRESS ADDS UP</p><h2>Make today count.</h2><p>Plan your work, protect your focus, and celebrate every win.</p></div>
+        <div class="welcome-symbol">✦</div>
+      </div>
+      <div class="stats-grid">
+        <article class="stat-card"><span class="stat-icon">☑</span><p>Tasks completed</p><strong id="stat-completed">0</strong><small>All-time progress</small></article>
+        <article class="stat-card"><span class="stat-icon">◷</span><p>Pending tasks</p><strong id="stat-pending">0</strong><small>Things to focus on</small></article>
+        <article class="stat-card"><span class="stat-icon">🔥</span><p>Current streak</p><strong id="stat-streak">0 days</strong><small>Keep showing up</small></article>
+        <article class="stat-card"><span class="stat-icon">◎</span><p>Focus sessions</p><strong id="stat-sessions">0</strong><small>Pomodoro sessions</small></article>
+      </div>
+      <div class="content-grid">
+        <article class="panel"><div class="panel-heading"><div><h3>Today's tasks</h3><p>Your priorities for the day</p></div><button class="text-btn" data-go="tasks">View all →</button></div><div id="today-tasks" class="task-list"></div></article>
+        <article class="panel quote-panel"><span class="quote-mark">“</span><h3>Focus on progress, not perfection.</h3><p>One task at a time. One day at a time.</p><div class="quote-line"></div><small>YOUR DAILY REMINDER</small></article>
+      </div>
+    </section>
+
+    <section class="view" id="tasks-view">
+      <div class="section-heading"><div><h2>My Tasks</h2><p>Keep everything organised in one place.</p></div><button class="primary-btn" id="task-add">＋ New task</button></div>
+      <div class="filters"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="pending">Pending</button><button class="filter" data-filter="completed">Completed</button></div>
+      <div class="panel"><div id="all-tasks" class="task-list"></div></div>
+    </section>
+
+    <section class="view" id="calendar-view">
+      <div class="section-heading"><div><h2>Upcoming schedule</h2><p>Tasks arranged by their due date.</p></div></div>
+      <div class="panel"><div id="calendar-list" class="calendar-list"></div></div>
+    </section>
+
+    <section class="view" id="focus-view">
+      <div class="section-heading"><div><h2>Focus Timer</h2><p>Work in focused intervals and take mindful breaks.</p></div></div>
+      <div class="focus-wrap panel">
+        <div class="timer-tabs"><button class="timer-tab active" data-minutes="25">Focus · 25 min</button><button class="timer-tab" data-minutes="5">Short break · 5 min</button></div>
+        <div class="timer-ring"><div><strong id="timer-display">25:00</strong><span id="timer-mode">TIME TO FOCUS</span></div></div>
+        <div class="timer-controls"><button class="primary-btn" id="timer-start">Start focus</button><button class="secondary-btn" id="timer-reset">Reset</button></div>
+        <p class="timer-note">Tip: Put away distractions and work on just one task.</p>
+        <p class="session-count">Completed focus sessions: <strong id="focus-count">0</strong></p>
+      </div>
+    </section>
+
+    <section class="view" id="reports-view">
+      <div class="section-heading"><div><h2>Weekly report</h2><p>A simple look at how your week is going.</p></div></div>
+      <div class="stats-grid report-stats">
+        <article class="stat-card"><p>Tasks created</p><strong id="report-total">0</strong></article>
+        <article class="stat-card"><p>Tasks completed</p><strong id="report-done">0</strong></article>
+        <article class="stat-card"><p>Completion rate</p><strong id="report-rate">0%</strong></article>
+      </div>
+      <div class="panel"><div class="panel-heading"><div><h3>Progress overview</h3><p>Based on your current task list</p></div></div><div class="progress-track"><div id="progress-fill"></div></div><p class="progress-caption" id="progress-caption">Complete a task to start building your progress.</p></div>
+    </section>
+  </main>
+
+  <dialog id="task-dialog">
+    <form id="task-form">
+      <div class="dialog-heading"><div><h2>Add a task</h2><p>Break your goals into manageable steps.</p></div><button type="button" class="close-btn" id="close-dialog">×</button></div>
+      <label for="task-title">Task name</label><input id="task-title" type="text" placeholder="e.g. Complete project report" required maxlength="80">
+      <div class="form-row"><div><label for="task-date">Due date</label><input id="task-date" type="date" required></div><div><label for="task-priority">Priority</label><select id="task-priority"><option>Medium</option><option>High</option><option>Low</option></select></div></div>
+      <label for="task-category">Category</label><select id="task-category"><option>Study</option><option>Project</option><option>Personal</option><option>Other</option></select>
+      <button class="primary-btn submit-btn" type="submit">Save task</button>
+    </form>
+  </dialog>
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
